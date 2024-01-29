@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import instance from "./axios";
 import requests from "./requests";
 import "./Banner.css";
+import { ThemeContext } from "./ThemeContext";
+
 
 const Banner = () => {
+  const{trailerUrl,handleClick}=useContext(ThemeContext)
+  
   const [movie, setMovie] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await instance.get(requests.fetchNetflixOriginals);
+      const result = await instance.get(requests.fetchTrending);
       setMovie(
         result.data.results[
           Math.floor(Math.random() * result.data.results.length - 1)
@@ -35,8 +39,8 @@ const Banner = () => {
         </h1>
 
         <div className="banner_buttons">
-          <button className="banner_button">Play</button>
-          <button className="banner_button">My List</button>
+          <button onClick={()=>handleClick(movie)} className="banner_button">Play</button>
+          
         </div>
         <h1 className="banner_description">{truncate(movie?.overview, 150)}</h1>
       </div>

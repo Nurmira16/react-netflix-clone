@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 function Nav() {
   const [show, handleShow] = useState(false);
+  
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
